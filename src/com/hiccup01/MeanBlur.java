@@ -59,6 +59,7 @@ public class MeanBlur extends BasicFilter {
 				newImage[i][j] = average(super.getKernel(0, i, j, kernelSize));
 			}
 		}
+
 		return newImage;
 	}
 }
