@@ -4,33 +4,33 @@ import java.awt.*;
 import java.awt.image.*;
 
 /**
- * This is a helper class that allows for the transformation between the standard BufferedImage image format and the Color[][] based one.
+ * This is a helper class that allows for the transformation between the standard BufferedImage image format and the uColour[][] based one.
  * This class assumes the use of the sRGB colourspace and the TYPE_INT_RGB format.
  * @author serverhiccups
  * @see BufferedImage
  */
 public class ArrayBufferedImageInterface {
 	/**
-	 * Convert a Buffered image into a Color[][] array.
+	 * Convert a Buffered image into a uColour[][] array.
 	 * @param image The buffered image to convert.
-	 * @return The converted Color[][] array.
+	 * @return The converted uColour[][] array.
 	 */
-	public Color[][] intoArray(BufferedImage image) {
-        Color[][] newImage = new Color[image.getWidth()][image.getWidth()];
+	public uColour[][] intoArray(BufferedImage image) {
+        uColour[][] newImage = new uColour[image.getWidth()][image.getWidth()];
 		for(int i = 0; i < image.getWidth(); i++) {
 			for(int j = 0; j < image.getHeight(); j++) {
-				newImage[i][j] = new Color(image.getRGB(i, j));
+				newImage[i][j] = new uColour(image.getRGB(i, j));
 			}
 		}
 		return newImage;
 	}
 
 	/**
-	 * Convert a Color[][] array into a BufferedImage.
-	 * @param image The Color[][] array to convert.
+	 * Convert a uColour[][] array into a BufferedImage.
+	 * @param image The uColour[][] array to convert.
 	 * @return The converted BufferedImage.
 	 */
-	public BufferedImage intoBufferedImage(Color[][] image) {
+	public BufferedImage intoBufferedImage(uColour[][] image) {
 		BufferedImage newImage = new BufferedImage(image.length, image[0].length, BufferedImage.TYPE_INT_RGB);
 		for(int i = 0; i < image.length; i++) {
 			for(int j = 0; j < image[0].length; j++) {

@@ -26,11 +26,11 @@ public class MeanBlur extends BasicFilter {
 	}
 
 	/**
-	 * Takes a kernel (or any Color[][] array) and averages all the pixels in it.
-	 * @param kernel The Color[][] array to average.
+	 * Takes a kernel (or any uColour[][] array) and averages all the pixels in it.
+	 * @param kernel The uColour[][] array to average.
 	 * @return The average of the provided pixels.
 	 */
-	private Color average(Color[][] kernel) {
+	private uColour average(uColour[][] kernel) {
 		int r = 0, g = 0, b = 0;
 		int numberOfPixels = 0;
 		for(int i = 0; i < kernel.length; i++) {
@@ -42,8 +42,8 @@ public class MeanBlur extends BasicFilter {
 				b += kernel[i][j].getBlue();
 			}
 		}
-		if(numberOfPixels == 0) return Color.BLACK;
-		return new Color(r/numberOfPixels, g/numberOfPixels, b/numberOfPixels);
+		if(numberOfPixels == 0) return uColour.BLACK;
+		return new uColour(r/numberOfPixels, g/numberOfPixels, b/numberOfPixels);
 	}
 
 	/**
@@ -52,8 +52,8 @@ public class MeanBlur extends BasicFilter {
 	 * @throws FilterException Thrown if kernel size is even
 	 */
 	@Override
-	public Color[][] filter() throws FilterException {
-		Color[][] newImage = new Color[backingImages[0].length][backingImages[0][0].length];
+	public uColour[][] filter() throws FilterException {
+		uColour[][] newImage = new uColour[backingImages[0].length][backingImages[0][0].length];
 		for(int i = 0; i < newImage.length; i++) {
 			for(int j = 0; j < newImage[0].length; j++) {
 				newImage[i][j] = average(super.getKernel(0, i, j, kernelSize));

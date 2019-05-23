@@ -1,0 +1,26 @@
+9/5/19
+
+Add the initial code to support having filters, implemented with Java's builtin BufferedImage and uColour classes to make
+my implementation simple to begin with.
+
+5/11/19
+
+Add all the boilerplate code for saving and loading images, as well as a BasicFilter class with some utility functions
+that other Filters can use.
+
+Add JavaDoc comments so that the function and usage of my code is more obvious.
+
+16/5/19
+
+Add an filter that can can the exposure of the image (by multiplying all the colour channels by a constant value), a
+basic gaussian filter (with a broken kernel, I'll fix it later) and a 'filter' to convert colour images to black and
+white for ease of processing and edge detection.
+
+21/5/19
+
+Start the implementation of my own java.awt.uColour class called 'uColour' (microColour) which should hopefully be faster
+than the builtin in one, as well as showing the use of bitwise operators.
+
+23/5/19
+
+Finished the implementation of uColour and fixed the Gaussian kernel generator. Next up: edge detection.

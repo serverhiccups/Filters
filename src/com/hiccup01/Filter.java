@@ -12,13 +12,13 @@ public interface Filter {
 	 * @param image The array of images for the filter to use.
 	 * @throws FilterException Thrown if the data is malformed for the filter in use.
 	 */
-	void setData(Color[][][] image) throws FilterException;
+	void setData(uColour[][][] image) throws FilterException;
 
 	/**
 	 * Filters the provided data
 	 * @return The filtered image in array format.
 	 * @throws FilterException Thrown if there is an issue filtering.
 	 */
-	Color[][] filter() throws FilterException;
+	uColour[][] filter() throws FilterException;
 }
 

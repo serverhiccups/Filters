@@ -15,7 +15,7 @@ public class Gaussian extends MeanBlur {
 		this.sigma = sigma;
 	}
 
-	public Color average(Color[][] kernel, double[][] multipliers) {
+	public uColour average(uColour[][] kernel, double[][] multipliers) {
 		double r = 0, g = 0, b = 0;
 		double totalWeight = 0;
 		for (int i = 0; i < kernel.length; i++) {
@@ -27,26 +27,29 @@ public class Gaussian extends MeanBlur {
 				b += kernel[i][j].getBlue() * multipliers[i][j];
 			}
 		}
-		return new Color((int)(r/totalWeight), (int)(g/totalWeight), (int)(b/totalWeight));
+		return new uColour((int)(r/totalWeight), (int)(g/totalWeight), (int)(b/totalWeight));
 	}
 
 	public double[][] generateMultipliers(double sigma, int size) {
-		double gaussianConstant = (1/Math.sqrt(2*Math.PI*(Math.pow(sigma, 2))));
-		double[] multipliers = new double[size];
-		for(int i = 0 - size / 2; i < size/2; i++) {
-			multipliers[i+(size / 2)] = gaussianConstant * Math.pow(Math.E, -1*((i^2)/(2*Math.pow(sigma, 2))));
-		}
-		double[][] multipliers2d = new double[size][size];
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				multipliers2d[i][j] = multipliers[i] * multipliers[j];
+		double gaussianConstant = 1/(2*Math.PI*Math.pow(sigma, 2));
+		double[][] multipliers = new double[size][size];
+		for(int x = 0; x < size; x++) {
+			for(int y = 0; y < size; y++) {
+				int rx = x - (size / 2);
+				int ry = y - (size / 2);
+				multipliers[x][y] = gaussianConstant * Math.pow(Math.E, -1*((Math.pow(rx, 2) + Math.pow(ry, 2))/2*Math.pow(sigma, 2)));
 			}
 		}
-		return multipliers2d;
+		return multipliers;
 	}
 
-	public Color[][] filter() throws FilterException {
-		Color[][] newImage = new Color[backingImages[0].length][backingImages[0][0].length];
+	public uColour[][] filter() throws FilterException {
+		uColour[][] newImage = new uColour[backingImages[0].length][backingImages[0][0].length];
+		for(int i = 0; i < newImage.length; i++) {
+			for(int j = 0; j < newImage[0].length; j++) {
+				newImage[i][j] = uColour.ORANGE;
+			}
+		}
 		double[][] multipliers = generateMultipliers(1, (int)(3*sigma)+1);
 		for(int i = 0; i < newImage.length; i++) {
 			for(int j = 0; j < newImage[0].length; j++) {

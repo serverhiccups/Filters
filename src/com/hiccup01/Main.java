@@ -10,6 +10,14 @@ import java.util.Calendar;
 public class Main {
 
 	public static void main(String[] args) {
+		double[][] mults;
+		mults = new Gaussian().generateMultipliers(1, 5);
+		for(int i = 0; i < mults.length; i++) {
+			for(int j = 0; j < mults[0].length; j++) {
+				System.out.printf("%f", mults[i][j]);
+			}
+			System.out.print("\n");
+		}
 		BufferedImage startingImage = null;
 		try { // Try to read in an image to filter
 			startingImage = ImageIO.read(new File("strawberry.jpg"));
@@ -17,9 +25,9 @@ public class Main {
 			System.out.println("Could not find the file");
 			System.exit(1);
 		}
-		Color[][] startingArray = new ArrayBufferedImageInterface().intoArray(startingImage); // Turn the BufferedImage we read in into a Color[][] array.
-		BasicFilter blur = new Grayscale();
-		Color[][][] backingImages = new Color[1][startingArray.length][startingArray[0].length];
+		uColour[][] startingArray = new ArrayBufferedImageInterface().intoArray(startingImage); // Turn the BufferedImage we read in into a uColour[][] array.
+		BasicFilter blur = new Gaussian(4);
+		uColour[][][] backingImages = new uColour[1][startingArray.length][startingArray[0].length];
 		backingImages[0] = startingArray;
 		try { // Add our image to the filter.
 			blur.setData(backingImages);
@@ -27,7 +35,7 @@ public class Main {
 			System.out.println("Couldn't set the data for the filter");
 			System.exit(1);
 		}
-		Color[][] filteredArray = null;
+		uColour[][] filteredArray = null;
 		try { // Try to blur our image.
 			filteredArray = blur.filter();
 		} catch (FilterException e) {
