@@ -10,14 +10,6 @@ import java.util.Calendar;
 public class Main {
 
 	public static void main(String[] args) {
-		double[][] mults;
-		mults = new Gaussian().generateMultipliers(1, 5);
-		for(int i = 0; i < mults.length; i++) {
-			for(int j = 0; j < mults[0].length; j++) {
-				System.out.printf("%f", mults[i][j]);
-			}
-			System.out.print("\n");
-		}
 		BufferedImage startingImage = null;
 		try { // Try to read in an image to filter
 			startingImage = ImageIO.read(new File("strawberry.jpg"));
@@ -26,7 +18,16 @@ public class Main {
 			System.exit(1);
 		}
 		uColour[][] startingArray = new ArrayBufferedImageInterface().intoArray(startingImage); // Turn the BufferedImage we read in into a uColour[][] array.
-		BasicFilter blur = new Gaussian(4);
+		int[][] sobelOperator = {{1, 0, -1},
+								{2, 0, -2},
+								{1, 0, -2}};
+		BasicFilter blur = null;
+		try {
+			blur = new customKernelFilter(sobelOperator);
+		} catch (FilterException e) {
+			System.out.println("Filter making failed");
+			System.exit(1);
+		}
 		uColour[][][] backingImages = new uColour[1][startingArray.length][startingArray[0].length];
 		backingImages[0] = startingArray;
 		try { // Add our image to the filter.
