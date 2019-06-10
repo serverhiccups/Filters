@@ -34,7 +34,7 @@ public class customKernelFilter extends BasicFilter {
 		}
 		totalValue += minKernelVal * -1;
 		totalValue /= ((maxKernelVal + (minKernelVal * -1)) / 255);
-		return new uColour(totalValue, 0, 0);
+		return new uColour(totalValue, totalValue, totalValue);
 	}
 
 	public uColour[][] filter() {

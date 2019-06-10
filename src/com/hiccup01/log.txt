@@ -24,3 +24,7 @@ than the builtin in one, as well as showing the use of bitwise operators.
 23/5/19
 
 Finished the implementation of uColour and fixed the Gaussian kernel generator. Next up: edge detection.
+
+27/5/19
+
+Implemented a basic sobel filter, but it will only work on the red channel, so I'm going to make the image greyscale before I process them.

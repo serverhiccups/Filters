@@ -22,12 +22,7 @@ public class Main {
 								{2, 0, -2},
 								{1, 0, -2}};
 		BasicFilter blur = null;
-		try {
-			blur = new customKernelFilter(sobelOperator);
-		} catch (FilterException e) {
-			System.out.println("Filter making failed");
-			System.exit(1);
-		}
+		blur = new Grayscale();
 		uColour[][][] backingImages = new uColour[1][startingArray.length][startingArray[0].length];
 		backingImages[0] = startingArray;
 		try { // Add our image to the filter.
@@ -41,6 +36,16 @@ public class Main {
 			filteredArray = blur.filter();
 		} catch (FilterException e) {
 			System.out.println("We got a FilterException");
+			System.exit(1);
+		}
+		BasicFilter edges = null;
+		try {
+			edges = new customKernelFilter(sobelOperator);
+			backingImages[0] = filteredArray;
+			edges.setData(backingImages);
+			filteredArray = edges.filter();
+		} catch (FilterException e) {
+			System.out.println("Failed the make the edge detect filter");
 			System.exit(1);
 		}
 		BufferedImage filteredImage = new ArrayBufferedImageInterface().intoBufferedImage(filteredArray); // Turn our filtered array into a Buffered Image.
