@@ -1,6 +1,7 @@
 package com.hiccup01;
 
-import java.awt.*;
+import com.beust.jcommander.IParameterValidator;
+import com.beust.jcommander.ParameterException;
 
 /**
  * A class that exists to provide a reference Filter implementation and to provide helper functions to subclassing filters.

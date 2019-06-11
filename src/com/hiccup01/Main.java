@@ -2,7 +2,6 @@ package com.hiccup01;
 
 import javax.imageio.ImageIO;
 import java.awt.image.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
@@ -40,7 +39,7 @@ public class Main {
 		}
 		BasicFilter edges = null;
 		try {
-			edges = new customKernelFilter(sobelOperator);
+			edges = new CustomKernelFilter(sobelOperator);
 			backingImages[0] = filteredArray;
 			edges.setData(backingImages);
 			filteredArray = edges.filter();

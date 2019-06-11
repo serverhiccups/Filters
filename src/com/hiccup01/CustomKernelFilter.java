@@ -1,11 +1,11 @@
 package com.hiccup01;
 
-public class customKernelFilter extends BasicFilter {
+public class CustomKernelFilter extends BasicFilter {
 	public int[][] kernel = null;
 	public int maxKernelVal = 0;
 	public int minKernelVal = 0;
 
-	public customKernelFilter(int[][] kernel) throws FilterException {
+	public CustomKernelFilter(int[][] kernel) throws FilterException {
 		if (kernel.length % 2 != 1 || kernel[0].length % 2 != 1) throw new FilterException();
 		for (int i = 0; i < kernel.length; i++) {
 			System.out.printf("j bounds = %d, i bounds = %d\n", kernel[0].length, kernel.length);
