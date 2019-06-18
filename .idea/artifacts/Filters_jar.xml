@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Filters:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Filters_jar</output-path>
+    <root id="archive" name="Filters.jar">
+      <element id="module-output" name="Filters" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/beust/jcommander/1.72/jcommander-1.72.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

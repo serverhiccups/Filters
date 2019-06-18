@@ -5,12 +5,9 @@ public class CustomKernelFilter extends BasicFilter {
 	public int maxKernelVal = 0;
 	public int minKernelVal = 0;
 
-	public CustomKernelFilter(int[][] kernel) throws FilterException {
-		if (kernel.length % 2 != 1 || kernel[0].length % 2 != 1) throw new FilterException();
+	public CustomKernelFilter(int[][] kernel) {
 		for (int i = 0; i < kernel.length; i++) {
-			System.out.printf("j bounds = %d, i bounds = %d\n", kernel[0].length, kernel.length);
 			for (int j = 0; j < kernel[0].length; j++) {
-				System.out.printf("i = %d, j = %d\n", i, j);
 				if (kernel[i][j] > 0) {
 					maxKernelVal += kernel[i][j] * 255;
 				}

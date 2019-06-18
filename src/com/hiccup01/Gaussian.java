@@ -50,11 +50,11 @@ public class Gaussian extends MeanBlur {
 				newImage[i][j] = uColour.ORANGE;
 			}
 		}
-		double[][] multipliers = generateMultipliers(1, (int)(3*sigma)+1);
+		double[][] multipliers = generateMultipliers(1, (int)(3*sigma));
 		for(int i = 0; i < newImage.length; i++) {
 			for(int j = 0; j < newImage[0].length; j++) {
 				try {
-					newImage[i][j] = average(super.getKernel(0, i, j, (int)(3*sigma)+1), multipliers);
+					newImage[i][j] = average(super.getKernel(0, i, j, (int)(3*sigma)), multipliers);
 				} catch (FilterException e) {
 					throw e;
 				}

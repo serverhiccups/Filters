@@ -17,7 +17,6 @@ public class BasicFilter implements Filter {
 	 * @throws FilterException Thrown if the data is malformed.
 	 */
 	public void setData(uColour[][][] image) throws FilterException {
-		if(image.length != 1) throw new FilterException();
 		if(image[0].length < 1) throw new FilterException();
 		if(image[0][0].length < 1) throw new FilterException();
 		backingImages = java.util.Arrays.copyOf(image, image.length);
