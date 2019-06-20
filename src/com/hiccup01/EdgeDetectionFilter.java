@@ -27,10 +27,10 @@ public class EdgeDetectionFilter extends BasicFilter {
 		}
 		dimensions[1] = ckf.filter();
 		uColour[][] filteredImage = new uColour[dimensions[0].length][dimensions[0][0].length];
-		// Remember that the total of sprt(255^2 + 255^2) is ~361
+		// Remember that the total of sqrt(255^2 + 255^2) is ~361
 		for (int i = 0; i < filteredImage.length; i++) {
-			for (int j = 0; j < filteredImage.length; j++) {
-				int intensity = (int) ((Math.sqrt((dimensions[0][i][j].getRed() ^ 2) + (dimensions[1][i][j].getRed() ^ 2)) / (float)361) * (float)255);
+			for (int j = 0; j < filteredImage[0].length; j++) {
+                int intensity = (int)(Math.hypot(dimensions[0][i][j].getRed(), dimensions[1][i][j].getRed()) / 361f * 255f);
 				filteredImage[i][j] = new uColour(intensity, intensity, intensity);
 			}
 		}
