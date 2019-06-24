@@ -10,45 +10,65 @@ import java.io.File;
 import java.io.IOException;
 
 public class CommandFilter {
-	@Parameter(description = "The file to filter. Use '-' to use stdin.",
-	required = true)
+	@Parameter(description = "The file to filter. Use '-' to use stdin.")
     public String file;
 
 	@Parameter(names = {"--help", "-h"},
 	description = "Display a help message",
-	help = true)
+	help = true,
+	order = 0)
 	public boolean help = false;
 
 	@Parameter(names = {"--filter", "-f"},
 			description = "The name of the filter to use. A list of filters can be obtained by running 'filters --listFilters'.",
-			validateWith = FilterNameValidator.class)
+			validateWith = FilterNameValidator.class,
+			order = 2)
 	public String filterName;
 
 	@Parameter(names = {"--radius", "-r", "--sigma", "-s"},
 			description = "For meanblur this is the radius of the kernel in pixels. For gaussian this is the value of sigma and the radius is adjusted accordingly.",
-			validateWith = KernelRadiusValidator.class)
+			validateWith = KernelRadiusValidator.class,
+			order = 3)
 	public int radius = 3;
 
 	@Parameter(names = {"--exposureMultiplier", "--em", "-e"},
 	description = "The value to multiply the pixels by when changing the exposure.",
-	validateWith = ExposureValueValidator.class)
+	validateWith = ExposureValueValidator.class,
+			order = 4)
 	public double exposureMultiplier = 1.5;
 
-	@Parameter(names = {"--output", "-o"}, description = "The file to output to. Leave blank for standard out.")
+	@Parameter(names = {"--output", "-o"}, description = "The file to output to. Leave blank for standard out.", order = 5)
 	public String output;
 
 	@Parameter(names = {"--format", "--fo"},
-	description = "The name of the format the output should be in. Supports png and jpeg.",
-	validateWith = FiletypeValidator.class)
+			description = "The name of the format the output should be in. Supports png and jpeg.",
+			validateWith = FiletypeValidator.class,
+			order = 6)
 	public String format = "png";
+
+	@Parameter(names = {"--listFilters"},
+			description = "Print out a list of valid filters to use with --filter.",
+			order = 1)
+	public boolean listFilters = false;
 
 	public static String[] filterNames = {"meanblur", "gaussianblur", "exposure", "grayscale", "sobelx", "sobely", "edgedetection"};
 	private static int[][] sobelx = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
 	private static int[][] sobely = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
 	public void run() {
-
+		if(listFilters) {
+			System.out.println("The available filters are:");
+			for(int i = 0; i < filterNames.length - 1; i++) {
+				System.out.printf("%s, ", filterNames[i]);
+			}
+			System.out.printf("%s \n", filterNames[filterNames.length-1]);
+			System.exit(0);
+		}
 		BufferedImage startingImage = null;
+		if(file == null) {
+			System.err.printf("No input file was provided\n");
+			System.exit(0);
+		}
 		if(!file.equals("-")) {
 			try {
 				startingImage = ImageIO.read(new File(file));

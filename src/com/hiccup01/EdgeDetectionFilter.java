@@ -3,8 +3,8 @@ package com.hiccup01;
 import java.util.Arrays;
 
 public class EdgeDetectionFilter extends BasicFilter {
-	public static int[][] sobelx = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
-	public static int[][] sobely = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
+	private static int[][] sobelx = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}};
+	private static int[][] sobely = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}};
 
 	@Override
 	public uColour[][] filter() throws FilterException {
