@@ -1,8 +1,5 @@
 package com.hiccup01;
 
-import com.beust.jcommander.IParameterValidator;
-import com.beust.jcommander.ParameterException;
-
 /**
  * A class that exists to provide a reference Filter implementation and to provide helper functions to subclassing filters.
  * @author serverhiccups
@@ -17,9 +14,12 @@ public class BasicFilter implements Filter {
 	 * @throws FilterException Thrown if the data is malformed.
 	 */
 	public void setData(uColour[][][] image) throws FilterException {
-		if(image[0].length < 1) throw new FilterException();
-		if(image[0][0].length < 1) throw new FilterException();
-		backingImages = java.util.Arrays.copyOf(image, image.length);
+		if(image.length == 0) throw new FilterException(); // Make sure that there is a least one image in the data
+		for(int i = 0; i < image.length; i++) { // Make sure all the provided images have dimension.
+			if(image[i].length < 1) throw new FilterException();
+			if(image[i][0].length < 1) throw new FilterException();
+		}
+		backingImages = java.util.Arrays.copyOf(image, image.length); // Copy the provided images into our backing store.
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class BasicFilter implements Filter {
 	 * @throws FilterException Thrown if no data is set.
 	 */
 	public uColour[][] filter() throws FilterException {
-		if(backingImages == null) throw new NoDataSetException();
+		if(backingImages == null) throw new FilterException();
 		uColour[][] newImage = new uColour[backingImages[0].length][backingImages[0][0].length];
 		for(int i = 0; i < backingImages[0].length; i++) {
 			for(int j = 0; j < backingImages[0][0].length; j++) {
@@ -43,9 +43,9 @@ public class BasicFilter implements Filter {
 	 * Because the bounds-checking code here is guaranteed to work I would recommend using it.
 	 * @param imageNumber The number of the backing image to request the kernel from.
 	 * @param x The x position of the center of the kernel.
-	 * @param y The y positino of teh the center of the kernel.
+	 * @param y The y position of the the center of the kernel.
 	 * @param size The size of the edge of the kernel in pixels. This must be an odd number.
-	 * @return A uColour[][] array of the pixels in the requested kernel.
+	 * @return A uColour[][] array of the pixels in the requested kernel. All out of bounds pixels are set to null.
 	 * @throws FilterException Thrown if size is even.
 	 */
 	public uColour[][] getKernel(int imageNumber, int x, int y, int size) throws FilterException {

@@ -1,7 +1,5 @@
 package com.hiccup01;
 
-import java.awt.*;
-
 /**
  * A basic mean blur that averages all the pixels in the provided kernel radius.
  * @author serverhiccups

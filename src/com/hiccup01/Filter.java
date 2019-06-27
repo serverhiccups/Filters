@@ -1,7 +1,5 @@
 package com.hiccup01;
 
-import java.awt.*;
-
 /**
  * An interface that describes the minimal amount of interface that Filters have to provide.
  * @see BasicFilter

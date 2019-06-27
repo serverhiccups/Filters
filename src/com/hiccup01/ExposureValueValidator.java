@@ -3,6 +3,11 @@ package com.hiccup01;
 import com.beust.jcommander.ParameterException;
 import com.beust.jcommander.IParameterValidator;
 
+/**
+ * Makes sure that the exposure values are within bounds.
+ * @see ExposureFilter
+ * @see IParameterValidator
+ */
 public class ExposureValueValidator implements IParameterValidator {
 	@Override
 	public void validate(String name, String value) throws ParameterException {

@@ -2,9 +2,13 @@ package com.hiccup01;
 
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
-
 import java.util.Arrays;
 
+/**
+ * Makes sure that the filetypes that we are provided are valid.
+ * @see javax.imageio.ImageIO
+ * @see IParameterValidator
+ */
 public class FiletypeValidator implements IParameterValidator {
 	@Override
 	public void validate(String name, String value) throws ParameterException {

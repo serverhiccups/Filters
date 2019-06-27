@@ -1,20 +1,35 @@
 package com.hiccup01;
 
-import java.awt.*;
-
+/**
+ * A faux-exposure increasing filter.
+ * @see Filter
+ * @see BasicFilter
+ */
 public class ExposureFilter extends BasicFilter {
 	float exposureMultiplier = (float) 1.5;
 
+	/**
+	 * Initalises ExposureFilter with the given multiplier.
+	 * @param multiplier The value to multiply the pixels by.
+	 */
 	ExposureFilter(float multiplier) {
 		exposureMultiplier = multiplier;
 	}
 
-	public ExposureFilter(double v) {
-		this((float)v);
+	/**
+	 * Initalises ExposureFilter with the given multiplier.
+	 * @param multiplier The value to multiply the pixels by.
+	 */
+	public ExposureFilter(double multiplier) {
+		this((float)multiplier);
 	}
 
+	/**
+	 * Exposes the provided image.
+	 * @return The exposed image.
+	 */
 	@Override
-	public uColour[][] filter() throws FilterException {
+	public uColour[][] filter() {
 		uColour[][] newImage = new uColour[backingImages[0].length][backingImages[0][0].length];
 		for(int i = 0; i < newImage.length; i++) {
 			for(int j = 0; j < newImage[0].length; j++) {

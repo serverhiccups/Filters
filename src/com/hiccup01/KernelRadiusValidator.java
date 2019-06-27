@@ -3,6 +3,11 @@ package com.hiccup01;
 import com.beust.jcommander.IParameterValidator;
 import com.beust.jcommander.ParameterException;
 
+/**
+ * Makes sure the the kernel radius values are valid.
+ * @see ExposureFilter
+ * @see IParameterValidator
+ */
 public class KernelRadiusValidator implements IParameterValidator {
 	@Override
 	public void validate(String name, String value) throws ParameterException {

@@ -1,20 +1,19 @@
 package com.hiccup01;
 
-import com.beust.jcommander.JCommander;
+import com.beust.jcommander.JCommander; // This is the library that I'm using to parse the commandline arguments
 
 public class Main {
 
 	public static void main(String[] args) {
-		CommandMain cm = new CommandMain();
 		CommandFilter filter = new CommandFilter();
-		JCommander jc = JCommander.newBuilder()
+		JCommander jc = JCommander.newBuilder() // Build our argument parser
 				.addObject(filter)
 				.build();
-		jc.parse(args);
-		if(filter.help) {
+		jc.parse(args); // Parse the arguments
+		if(filter.help) { // If the user wants help, give it to them
 			jc.usage();
 		} else {
-			filter.run();
+			filter.run(); // Run the filter (the arguments are set upon parsing)
 		}
 	}
 }
