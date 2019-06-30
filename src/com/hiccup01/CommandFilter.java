@@ -24,6 +24,11 @@ public class CommandFilter {
 	order = 0)
 	public boolean help = false;
 
+	@Parameter(names ={"-v", "--version"},
+	description = "Display the current version.",
+	order = 7)
+	boolean version = false;
+
 	@Parameter(names = {"--filter", "-f"},
 			description = "The name of the filter to use. A list of filters can be obtained by running 'filters --listFilters'.",
 			validateWith = FilterNameValidator.class,
@@ -68,6 +73,10 @@ public class CommandFilter {
 			}
 			System.out.printf("%s \n", filterNames[filterNames.length-1]); // We print this one out separately so that there is not a comma on the end.
 			System.exit(0); // This argument should only ever be used on its own so we exit here.
+		}
+		if(version) {
+			System.out.printf("Filters.jar version %s", Main.version);
+			System.exit(0);
 		}
 		BufferedImage startingImage = null;
 		if(file == null) { // If the user didn't provide an input file.
