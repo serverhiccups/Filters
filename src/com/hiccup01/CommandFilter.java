@@ -86,7 +86,8 @@ public class CommandFilter {
 		if(!file.equals("-")) { // The dash is short hand for standard input.
 			try {
 				startingImage = ImageIO.read(new File(file)); // Try reading from the provided file.
-			} catch (IOException e) {
+				if(startingImage == null) throw new Exception();
+			} catch (Exception e) {
 				System.err.println("Could not find the input file. Maybe there is a spelling mistake in the provided filename or the file is corrupt?");
 				System.exit(1);
 			}
