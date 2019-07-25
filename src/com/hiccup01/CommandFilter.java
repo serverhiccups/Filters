@@ -61,6 +61,11 @@ public class CommandFilter {
 			order = 1)
 	public boolean listFilters = false;
 
+	@Parameter(names = {"-d", "--display"},
+		description = "Display the image when you're done. This option is ignored if writing to standard out or if you are on Windows. Requires either open or xdg-open.",
+		order = 7)
+	public boolean display = false;
+
 	public static String[] filterNames = {"meanblur", "gaussianblur", "exposure", "grayscale", "sobelx", "sobely", "edgedetection"};
 	private static int[][] sobelx = {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}}; // | These are the sobel operators to use, these ones are the non-edge snapping version.
 	private static int[][] sobely = {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}}; // |
@@ -161,6 +166,19 @@ public class CommandFilter {
 				ImageIO.write(filteredImage, format, new File(output));
 			} catch (IOException e) {
 				System.err.println("An error occured when writing the image to disk. Do you have disk space free and do you have write permissions?");
+				System.exit(1);
+			}
+			try {
+				if(!OSDetector.isWindows()) {
+					if(OSDetector.isMac()) {
+						Process openFile = new ProcessBuilder("open", output).start();
+					} else {
+						Process openFile = new ProcessBuilder("xdg-open", output).start();
+					}
+				}
+			} catch (Exception e) {
+				System.err.println("An error occured when trying to open image to view. Is xdg-open installed on your system?");
+				System.exit(2);
 			}
 		}
 		System.exit(0); // No errors occurred, so we must have filtered successfully.
